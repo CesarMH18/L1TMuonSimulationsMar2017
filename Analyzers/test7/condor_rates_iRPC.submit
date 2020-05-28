@@ -1,0 +1,48 @@
+Universe    =  vanilla
++JobFlavour = "testmatch"
+
+Executable  =  rates_iRPC_condorjobs.sh
+Arguments   =  $(cutx) $(cuty)
+
+Error       =  CondorFiles/rates_iRPC.$(ClusterId).$(ProcId).err
+Output      =  CondorFiles/rates_iRPC.$(ClusterId).$(ProcId).out
+Log         =  CondorFiles/rates_iRPC.$(ClusterId).log
+
+Environment = "HOME=$ENV(HOME)"
+
+should_transfer_files    =  YES
+transfer_input_files     =  Code.tar.gz, dataNeutrino/
+when_to_transfer_output  =  ON_EXIT
+transfer_output_files   =  histos_tbb_files_1-63_CSCmatch_iRPC_cutx_$(cutx)_cuty_$(cuty).root
+Queue cutx,cuty from job_list.txt
+
+
+
+
+#--------------------------------------------------------
+#requirements = (OpSysAndVer =?= "SLCern6")
+#requirements = ( (OpSysAndVer =?= "CentOS7") && (CERNEnvironment =?= "qa") )
+#+BenchmarkJob = True
+
+#+MaxRuntime = Number of seconds
+
+#WHEN_TO_TRANSFER_OUTPUT = ON_EXIT_OR_EVICT
+#+SpoolOnEvict = False
+#stream_output = True
+#stream_error = True
+
+#request_disk            = 3500MB
+#request_memory          = 2000MB
+#use_x509userproxy       = TRUE
+#x509userproxy           = $ENV(X509_USER_PROXY)
+
+#condor_wait -status log/hello.70.log
+#transfer_output_remaps  =  "histos_tbc_files_1-10_CSCmatch_iRPC_cutx_$(cutx)_cuty_$(cuty).root = output/histos_tbc_files_1-10_CSCmatch_EMTF_cutx_$(cutx)_cuty_$(cuty).root"
+
+#espresso     = 20 minutes
+#microcentury = 1 hour
+#longlunch    = 2 hours
+#workday      = 8 hours
+#tomorrow     = 1 day
+#testmatch    = 3 days
+#nextweek     = 1 week
